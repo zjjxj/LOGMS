@@ -5,9 +5,13 @@ import {Router, Route, browserHistory} from 'react-router';
 import React from 'react';
 import reducer from './reducers/index';
 
-import middlewareLogin from './middlewares/login';
+import middlewareLogin from './middlewares/homePage';
 
-import Login from './containers/login';
+import HomePage from './containers/homePage';
+import OrderDetail from './containers/orderDetail';
+import LoginPage from './containers/loginPage';
+import AdminPage from './containers/adminPage';
+import SenderPage from './containers/senderPage';
 
 const createMiddlewareStore = applyMiddleware(
     middlewareLogin
@@ -20,6 +24,10 @@ const store = createMiddlewareStore(reducer);
 
 render(<Provider store={store}>
     <Router history={browserHistory}>
-        <Route path="/" component={Login}/>
+        <Route path="/" component={HomePage}/>
+        <Route path="/orderDetail" component={OrderDetail}/>
+        <Route path="/loginPage" component={LoginPage}/>
+        <Route path="/adminPage" component={AdminPage}/>
+        <Route path="/senderPage" component={SenderPage}/>
     </Router>
 </Provider>, document.getElementById("content"));
