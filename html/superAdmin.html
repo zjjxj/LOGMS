@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>系统管理员</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #content {
+            background-image: url("../public/image/bg2.jpeg");
+            /*background-image: url("../public/image/bg.gif");*/
+            background-size: 100% 100%;
+            /*background-repeat: no-repeat;*/
+            height: 100vh;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .head {
+            height: 80px;
+            background-color: #dc1e32;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .head p {
+            font-size: 35px;
+            font-style: oblique;
+            color: white;
+            padding-left: 20px;
+        }
+
+        .head .loginBtn {
+            margin-right: 10%;
+            font-size: 20px;
+            border: none;
+            color: white;
+        }
+
+        .superAdmin-main {
+            width: 60%;
+            height: 1200px;
+            background-color: #e2e2e2;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+        }
+
+        .superAdmin-main .tab {
+            display: flex;
+            flex-direction: column;
+            width: 15%;
+        }
+
+        .superAdmin-main .tab span {
+            border-bottom: 1px dotted black;
+            padding: 20px;
+            text-align: center;
+
+        }
+
+        .activityTab {
+            background-color: #bfbebe;
+        }
+
+        .superAdmin-main >.content {
+            flex: 1;
+            height: 100%;
+            margin-left: 30px;
+            background-color: white;
+            border: 1px solid #d9d9d9;
+        }
+
+        .userManager {
+            display: none;
+        }
+
+        .superAdmin-main .userManager .userSearch {
+            /*background-color: #cccccc;*/
+            padding: 30px 50px;
+            margin: 0 auto;
+        }
+
+        .userManager .userSearch input {
+            height: 40px;
+            width: 70%;
+            border: 2px solid #ccc;
+            background-color: #f8f8f8;
+            font-size: 16px;
+        }
+
+        .userManager .userSearch button {
+            color: #fff;
+            background-color: #757070;
+            line-height: 30px;
+            padding: 0;
+            padding-left: 2px;
+            width: 118px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            border-radius: 3px;
+            text-align: center;
+            /*border: 1px solid #B51919;*/
+            position: relative;
+            -webkit-transition: top .2s;
+            transition: top .2s;
+            top: 0;
+            height: 40px;
+        }
+
+        .userManager .userList {
+            padding: 0 50px;
+        }
+
+        .userManager .userList div {
+            padding: 20px 0;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+        }
+
+        .userManager .list-title {
+            font-weight: bolder;
+        }
+
+        .userManager .list-item span,  .userManager .list-title span {
+            display: inline-block;
+            flex: 1;
+            text-align: center;
+            height: 100%;
+        }
+
+        .userSignIn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+            display: none;
+        }
+
+        .userSignIn>div {
+            width: 70%;
+            height: 30px;
+            display: flex;
+            padding: 16px 0;
+            justify-content: space-between;
+            border-bottom: 1px dotted #ccc;
+
+        }
+
+        .userSignIn>div label {
+
+        }
+
+        .userSignIn>div .content {
+            width: 80%;
+        }
+
+        .orderManager{
+
+        }
+        .superAdmin-main .orderManager .orderSearch {
+            /*background-color: #cccccc;*/
+            padding: 30px 50px;
+            margin: 0 auto;
+        }
+
+        .orderManager .orderSearch input {
+            height: 40px;
+            width: 70%;
+            border: 2px solid #ccc;
+            background-color: #f8f8f8;
+            font-size: 16px;
+        }
+
+        .orderManager .orderSearch button {
+            color: #fff;
+            background-color: #757070;
+            line-height: 30px;
+            padding: 0;
+            padding-left: 2px;
+            width: 118px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            border-radius: 3px;
+            text-align: center;
+            /*border: 1px solid #B51919;*/
+            position: relative;
+            -webkit-transition: top .2s;
+            transition: top .2s;
+            top: 0;
+            height: 40px;
+        }
+
+        .orderManager .orderList {
+            padding: 0 50px;
+        }
+
+        .orderManager .orderList div {
+            padding: 20px 0;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+        }
+
+        .orderManager .list-title {
+            font-weight: bolder;
+        }
+
+        .orderManager .list-item span,  .orderManager .list-title span {
+            display: inline-block;
+            flex: 1;
+            text-align: center;
+            height: 100%;
+        }
+
+
+        .signInBtn {
+            color: #fff;
+            background-color: #757070;
+            line-height: 30px;
+            padding: 0;
+            padding-left: 2px;
+            width: 118px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            border-radius: 3px;
+            text-align: center;
+            /*border: 1px solid #B51919;*/
+            position: relative;
+            -webkit-transition: top .2s;
+            transition: top .2s;
+            top: 0;
+            height: 40px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<body>
+<div id="content">
+    <div class='page'>
+        <nav class='head'>
+            <p class="navbar-text">LOG物流管理系统</p>
+            <span>欢迎你~~ <span> 0144378</span><span>(系统管理员)</span></span>
+            <span class="loginBtn">登出</span>
+        </nav>
+        <section class="superAdmin-main">
+            <div class="tab">
+                <span >人员管理</span>
+                <span >人员注册</span>
+                <span class="activityTab">订单统计</span>
+            </div>
+            <div class="content userManager">
+                <form class="userSearch">
+                    <input type="text" placeholder="请输入员工号"/>
+                    <button>查询</button>
+                </form>
+                <div class="userList">
+                    <div class="list-title">
+                        <span>工号</span>
+                        <span>姓名</span>
+                        <span>性别</span>
+                        <span>年龄</span>
+                        <span>岗位</span>
+                        <span>详细信息</span>
+                    </div>
+                    <div class="list-item">
+                        <span>00001</span>
+                        <span>小明</span>
+                        <span>男</span>
+                        <span>21</span>
+                        <span>派送员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>00002</span>
+                        <span>小红</span>
+                        <span>男</span>
+                        <span>21</span>
+                        <span>揽件员</span>
+                        <span><a href="#">个人信息</a></span>
+
+                    </div>
+                    <div class="list-item">
+                        <span>00003</span>
+                        <span>小张</span>
+                        <span>男</span>
+                        <span>23</span>
+                        <span>站点扫描员</span>
+                        <span><a href="#">个人信息</a></span>
+
+                    </div>
+                    <div class="list-item">
+                        <span>00004</span>
+                        <span>小明2</span>
+                        <span>女</span>
+                        <span>24</span>
+                        <span>站点管理员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>00004</span>
+                        <span>小明3</span>
+                        <span>女</span>
+                        <span>21</span>
+                        <span>派送员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>00005</span>
+                        <span>小明4</span>
+                        <span>男</span>
+                        <span>21</span>
+                        <span>站点管理员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>00006</span>
+                        <span>小明5</span>
+                        <span>男</span>
+                        <span>21</span>
+                        <span>派送员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>00006</span>
+                        <span>小明5</span>
+                        <span>男</span>
+                        <span>21</span>
+                        <span>派送员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>00006</span>
+                        <span>小明5</span>
+                        <span>男</span>
+                        <span>21</span>
+                        <span>派送员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>00006</span>
+                        <span>小明5</span>
+                        <span>男</span>
+                        <span>21</span>
+                        <span>派送员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>00006</span>
+                        <span>小明5</span>
+                        <span>男</span>
+                        <span>21</span>
+                        <span>派送员</span>
+                        <span><a href="#">个人信息</a></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content userSignIn">
+                <div>
+                    <label>姓名</label>
+                    <div class="content">
+                        <input type="text">
+                    </div>
+                </div>
+                <div>
+                    <label>密码</label>
+                    <div class="content">
+                        <input type="password">
+                    </div>
+                </div>
+                <div>
+                    <label>性别</label>
+                    <div class="content">
+                        <select>
+                            <option>男</option>
+                            <option>女</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label>出生日期</label>
+                    <div class="content"><input type="date"></div>
+                </div>
+                <div>
+                    <label>身份证号</label>
+                    <div class="content"><input type="text"></div>
+                </div>
+                <div>
+                    <label>手机号</label>
+                    <div class="content"><input type="text"></div>
+                </div>
+                <div>
+                    <label>住址</label>
+                    <div class="content"><input type="text"></div>
+                </div>
+                <div>
+                    <label>岗位</label>
+                    <div class="content">
+                        <select>
+                            <option>派送员</option>
+                            <option>揽件员</option>
+                            <option>站点管理员</option>
+                            <option>站点扫描员</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="signInBtn">注册</button>
+            </div>
+            <div class="content orderManager">
+                <form class="orderSearch">
+                    <input type="text" placeholder="请输入订单号"/>
+                    <button>查询</button>
+                </form>
+                <div class="orderList">
+                    <div class="list-title">
+                        <span>订单号</span>
+                        <span>订单状态</span>
+                        <span>订单详情</span>
+
+                    </div>
+                    <div class="list-item">
+                        <span>1</span>
+                        <span>已签收</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>2</span>
+                        <span>待揽件</span>
+                        <span><a href="#">订单详情</a></span>
+
+                    </div>
+                    <div class="list-item">
+                        <span>3</span>
+                        <span>已揽件</span>
+                        <span><a href="#">订单详情</a></span>
+
+                    </div>
+                    <div class="list-item">
+                        <span>4</span>
+                        <span>运输中</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>5</span>
+                        <span>带投递</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>6</span>
+                        <span>运输中</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>7</span>
+                        <span>待揽件</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>8</span>
+                        <span>已签收</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>9</span>
+                        <span>待投递</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>10</span>
+                        <span>已签收</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+                    <div class="list-item">
+                        <span>11</span>
+                        <span>已签收</span>
+                        <span><a href="#">订单详情</a></span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+</body>
+</body>
+</html>

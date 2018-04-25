@@ -9,10 +9,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSearchBtn:(orderNumber)=>{
-            dispatch({type:"SEARCH_ORDER",orderNumber});
-        }
-        ,
+
         onLogin:(info)=>{
             dispatch({type:"LOGIN_SUBMIT",info});
         }

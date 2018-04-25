@@ -34,16 +34,16 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.16.2",
     "mongodb": "^2.2.25",
-    "mongoose": "^4.9.5",
+    "mongoose": "^4.13.11",
     "react": "^15.5.0",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.4",
     "react-router": "^2.7.0",
     "redux": "^3.6.0",
     "request": "^2.81.0",
-    "superagent": "^3.5.2",
-    "body-parser": "^1.17.1"
+    "superagent": "^3.5.2"
   }
 }

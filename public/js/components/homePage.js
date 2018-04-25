@@ -46,11 +46,9 @@ export default class HomePage extends React.Component {
                 </div>
 
             </nav>
-            <form className="form-inline searchForm">
-                <div className="form-group">
-                    <input type="text" ref='orderNumber' className="form-control input-lg"  placeholder='您可以输入订单号进行查询'/>
-                </div>
-                <button  className="btn btn-default" onClick={this.onSearchBtn.bind(this)}>查询</button>
+            <form className="searchForm">
+                    <input type="text" ref='orderNumber' className="searchInput"  placeholder='您可以输入订单号进行查询'/>
+                <button  className="searchBtn" onClick={this.onSearchBtn.bind(this)}>查询</button>
             </form>
 
         </div>

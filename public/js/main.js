@@ -5,7 +5,8 @@ import {Router, Route, browserHistory} from 'react-router';
 import React from 'react';
 import reducer from './reducers/index';
 
-import middlewareLogin from './middlewares/homePage';
+import middlewareHomePage from './middlewares/homePage';
+import middlewareLoginPage from './middlewares/loginPage';
 
 import HomePage from './containers/homePage';
 import OrderDetail from './containers/orderDetail';
@@ -14,7 +15,8 @@ import AdminPage from './containers/adminPage';
 import SenderPage from './containers/senderPage';
 
 const createMiddlewareStore = applyMiddleware(
-    middlewareLogin
+    middlewareHomePage,
+    middlewareLoginPage
 )(createStore);
 
 
