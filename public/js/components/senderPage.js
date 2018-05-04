@@ -5,7 +5,7 @@ export default class SenderPage extends React.Component {
 
     render() {
         return<div>
-            揽件员页
+            空白页
         </div>
     }
 }

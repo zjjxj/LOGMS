@@ -1,0 +1,28 @@
+{
+  "ret": true,
+  "data": [
+    {
+      "senderInfo": {
+        "name": "",
+        "company": "",
+        "fixPhone": "",
+        "tel": "",
+        "addr": "",
+        "addrDetail": "",
+        "thingsType": "",
+        "weight": ""
+      },
+      "receiverInfo": {
+        "name": "",
+        "company": "",
+        "fixPhone": "",
+        "tel": "",
+        "addr": "",
+        "addrDetail": ""
+      },
+      "orderStatus": [
+        "已揽件"
+      ]
+    }
+  ]
+}

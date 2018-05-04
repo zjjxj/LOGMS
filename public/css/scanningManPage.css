@@ -1,0 +1,44 @@
+.scanningInfo{
+    width: 100%;
+    display: flex;
+    /*justify-content: space-around;*/
+    flex-direction: column;
+    /*flex-wrap: wrap;*/
+    margin-top: 50px;
+    align-items: center;
+
+}
+
+.scanningInfo div{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.scanningInfo input{
+    width: 60%;
+    height: 30px;
+}
+
+.scanningInfo button{
+    color: #fff;
+    background-color: #eb1d21;
+    line-height: 30px;
+    padding: 0;
+    padding-left: 2px;
+    width: 90px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    border-radius: 3px;
+    text-align: center;
+    border: 1px solid #B51919;
+    position: relative;
+    -webkit-transition: top .2s;
+    transition: top .2s;
+    top: 0;
+}
+
+.stationInfo{
+    margin-top: 50px;
+}

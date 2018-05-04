@@ -1,0 +1,195 @@
+.superAdmin-main {
+    width: 60%;
+    height: 1200px;
+    background-color: #e2e2e2;
+    margin: 0 auto;
+    padding: 20px 30px;
+    display: flex;
+}
+
+.superAdmin-main .tab {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+}
+
+.superAdmin-main .tab span {
+    border-bottom: 1px dotted black;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.activityTab {
+    background-color: #bfbebe;
+}
+
+.superAdmin-main >.content {
+    flex: 1;
+    height: 100%;
+    margin-left: 30px;
+    background-color: white;
+    border: 1px solid #d9d9d9;
+}
+
+.userManager {
+    /*display: none;*/
+}
+
+.superAdmin-main .userManager .userSearch {
+    /*background-color: #cccccc;*/
+    padding: 30px 50px;
+    margin: 0 auto;
+}
+
+.userManager .userSearch input {
+    height: 40px;
+    width: 70%;
+    border: 2px solid #ccc;
+    background-color: #f8f8f8;
+    font-size: 16px;
+}
+
+.userManager .userSearch button {
+    color: #fff;
+    background-color: #41b4ca;
+    line-height: 30px;
+    padding: 0;
+    padding-left: 2px;
+    width: 118px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    border-radius: 3px;
+    text-align: center;
+    /*border: 1px solid #B51919;*/
+    position: relative;
+    -webkit-transition: top .2s;
+    transition: top .2s;
+    top: 0;
+    height: 40px;
+}
+
+.userManager .userList {
+    padding: 0 50px;
+}
+
+.userManager .userList div {
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+}
+
+.userManager .list-title {
+    font-weight: bolder;
+}
+
+.userManager .list-item span,  .userManager .list-title span {
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+    height: 100%;
+}
+
+.userSignIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    /*display: none;*/
+}
+
+.userSignIn>div {
+    width: 70%;
+    height: 30px;
+    display: flex;
+    padding: 16px 0;
+    justify-content: space-between;
+    border-bottom: 1px dotted #ccc;
+
+}
+
+.userSignIn>div label {
+
+}
+
+.userSignIn>div .contents {
+    width: 80%;
+}
+
+.orderManager{
+
+}
+.superAdmin-main .orderManager .orderSearch {
+    /*background-color: #cccccc;*/
+    padding: 30px 50px;
+    margin: 0 auto;
+}
+
+.orderManager .orderSearch input {
+    height: 40px;
+    width: 70%;
+    border: 2px solid #ccc;
+    background-color: #f8f8f8;
+    font-size: 16px;
+}
+
+.orderManager .orderSearch button {
+    color: #fff;
+    background-color: #41b4ca;
+    line-height: 30px;
+    padding: 0;
+    padding-left: 2px;
+    width: 118px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    border-radius: 3px;
+    text-align: center;
+    /*border: 1px solid #B51919;*/
+    position: relative;
+    -webkit-transition: top .2s;
+    transition: top .2s;
+    top: 0;
+    height: 40px;
+}
+
+.orderManager .orderList {
+    padding: 0 50px;
+}
+
+.orderManager .orderList div {
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+}
+
+.orderManager .list-title {
+    font-weight: bolder;
+}
+
+.orderManager .list-item span,  .orderManager .list-title span {
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+    height: 100%;
+}
+
+
+.signInBtn {
+    color: #fff;
+    background-color:#41b4ca;
+    line-height: 30px;
+    padding: 0;
+    padding-left: 2px;
+    width: 118px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    border-radius: 3px;
+    text-align: center;
+    /*border: 1px solid #B51919;*/
+    position: relative;
+    -webkit-transition: top .2s;
+    transition: top .2s;
+    top: 0;
+    height: 40px;
+    margin-top: 30px;
+}

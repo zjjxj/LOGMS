@@ -13,6 +13,10 @@ import OrderDetail from './containers/orderDetail';
 import LoginPage from './containers/loginPage';
 import AdminPage from './containers/adminPage';
 import SenderPage from './containers/senderPage';
+import superAdminPage from './components/superAdminPage';
+import poster from './components/poster';
+import deliveryPage from './components/deliveryPage';
+import scanningManPage from './components/scanningManPage';
 
 const createMiddlewareStore = applyMiddleware(
     middlewareHomePage,
@@ -29,7 +33,11 @@ render(<Provider store={store}>
         <Route path="/" component={HomePage}/>
         <Route path="/orderDetail" component={OrderDetail}/>
         <Route path="/loginPage" component={LoginPage}/>
-        <Route path="/adminPage" component={AdminPage}/>
-        <Route path="/senderPage" component={SenderPage}/>
+        <Route path="/adminPage/:id" component={AdminPage}/>
+        <Route path="/senderPage/:id" component={SenderPage}/>
+        <Route path="/superAdminPage/:id" component={superAdminPage}/>
+        <Route path="/posterPage/:id" component={poster}/>
+        <Route path="/deliveryPage/:id" component={deliveryPage}/>
+        <Route path="/scanningPage/:id" component={scanningManPage}/>
     </Router>
 </Provider>, document.getElementById("content"));

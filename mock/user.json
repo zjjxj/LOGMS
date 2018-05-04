@@ -1,0 +1,59 @@
+{
+  "data": [
+    {
+      "id": "111111",
+      "password": "111111",
+      "name": "王小明",
+      "sex": "",
+      "birth": "",
+      "post": "系统管理员",
+      "addr": "",
+      "tel": "",
+      "idCard": ""
+    },
+    {
+      "id": "222222",
+      "password": "222222",
+      "name": "李小明",
+      "sex": "",
+      "birth": "",
+      "post": "站点管理员",
+      "addr": "",
+      "tel": "",
+      "idCard": ""
+    },
+    {
+      "id": "333333",
+      "password": "333333",
+      "name": "张小明",
+      "sex": "",
+      "birth": "",
+      "post": "揽件员",
+      "addr": "",
+      "tel": "",
+      "idCard": ""
+    },
+    {
+      "id": "444444",
+      "password": "444444",
+      "name": "周小明",
+      "sex": "",
+      "birth": "",
+      "post": "派送员",
+      "addr": "",
+      "tel": "",
+      "idCard": ""
+    },
+    {
+      "id": "555555",
+      "password": "555555",
+      "name": "赵小明",
+      "sex": "",
+      "birth": "",
+      "post": "站点扫描员",
+      "addr": "",
+      "tel": "",
+      "idCard": ""
+    }
+  ]
+}

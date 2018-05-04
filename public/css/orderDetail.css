@@ -1,0 +1,66 @@
+.orderDetail{
+    width:70%;
+    margin: 0 auto;
+    /*height: 500px;*/
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.orderDetailTitle{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.orderDetailTitle .orderInfo{
+    display: flex;
+    flex-direction: column;
+}
+.orderDetailTitle .orderInfo span{
+    padding: 3px;
+}
+.orderDetailTab{
+    display: flex;
+    border: 1px solid #ccc;
+}
+.orderDetailTab span{
+    flex:1;
+    text-align: center;
+    /*background: #ccc;*/
+    padding: 20px 0;
+}
+.orderDetailContent{
+    /*border: 1px solid black;*/
+}
+.activityOrderDetail{
+    background-color: #cccccc;
+}
+.orderDetailContent .orderNode .nodeTitle{
+    padding: 8px 10px;
+    background-color: #cccccc52;
+}
+.orderDetailContent .orderNode .nodeContent{
+    /*padding: 20px 5px;*/
+    font-size: 14px;
+}
+.nodeContent div{
+    padding: 12px 6px;
+}
+.orderDetailInfoTest{
+    padding: 30px;
+    display: flex;
+    width: 70%;
+    justify-content: space-around;
+
+}
+
+.orderDetailInfoTest input{
+    width: 30%;
+    height: 30px;
+}
+.orderDetailInfoTest button{
+    padding: 10px;
+
+}

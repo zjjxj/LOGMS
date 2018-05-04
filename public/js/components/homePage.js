@@ -8,21 +8,77 @@ export default class HomePage extends React.Component {
         super(props);
         this.state={
             name:"",
-            password:""
+            password:"",
+            showLoginForm:false
         }
     }
 
     onLoginBtn(){
-      browserHistory.push('/loginPage');
+        this.setState({
+            showLoginForm:true
+
+        })
+    }
+
+    onLoginRequest(e){
+        e.preventDefault();
+
+        const username = this.refs.username.value;
+        const password = this.refs.password.value;
+        // browserHistory.push("/superAdminPage");
+        // browserHistory.push("/posterPage");
+        fetch('/login',
+            {
+                method:'POST',
+                body:JSON.stringify({username,password}),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                if(myJson.ret){
+                    switch (myJson.data.post){
+                        case "系统管理员":
+                            browserHistory.push(`/superAdminPage/${myJson.data.id}`);
+                            break;
+                        case "派送员":
+                            browserHistory.push(`/posterPage/${myJson.data.id}`);
+                            break;
+                        case "站点管理员":
+                            browserHistory.push(`/adminPage/${myJson.data.id}`);
+                            break;
+                        case "揽件员":
+                            browserHistory.push(`/deliveryPage/${myJson.data.id}`);
+                            break;
+                        case "站点扫描员":
+                            browserHistory.push(`/scanningPage/${myJson.data.id}`);
+                            break;
+                    }
+                }else{
+                    alert(myJson.errorMessage);
+                }
+            });
+        // browserHistory.push("/deliveryPage");
+
+        // console.log({username,password})
+
     }
 
     onSearchBtn(e){
+        browserHistory.push("/orderDetail");
         e.preventDefault();
         const orderNumber=this.refs.orderNumber.value;
         if(!orderNumber){
             alert("订单号不得为空！")
         }
-        this.props.onSearchBtn(orderNumber);
+        // this.props.onSearchBtn(orderNumber);
+    }
+
+    onShadowClick(){
+        this.setState({
+            showLoginForm:false
+        })
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.searchOrderTip.tip==='success'){
@@ -35,22 +91,37 @@ export default class HomePage extends React.Component {
 
     }
     render() {
+        const isShowLoginForm = this.state.showLoginForm;
+        const container = !isShowLoginForm ? <div className="content">
+            <div className='page'>
+                <nav className='head'>
+                    <p className="navbar-text">LOG物流管理系统</p>
+                    <span className="loginBtn" onClick={this.onLoginBtn.bind(this)}>登录</span>
+                </nav>
+                <form className="searchForm">
+                    <input type="text" className="searchInput" placeholder='您可以输入订单号进行查询'/>
+                    <button className="searchBtn" onClick={this.onSearchBtn.bind(this)}>马上查单</button>
+                </form>
 
-        return <div className='page'>
-            <nav className='head'>
-                <p className="navbar-text" >LOG物流管理系统</p>
-                <div>
-                    <button type="button" onClick={this.onLoginBtn.bind(this)} className="btn">登录</button>
-                        <span id='#id_a'> </span>
+            </div>
+        </div> : <div className="content">
+            <div className='page'>
+                <div className="shadowBox" onClick={this.onShadowClick.bind(this)}></div>
+                <nav className='head'>
+                    <p className="navbar-text">LOG物流管理系统</p>
+                    <span className="loginBtn" onClick={this.onLoginBtn.bind(this)}>登录</span>
+                </nav>
+                <form className="loginForm">
+                    <input type="text" className="username" placeholder='请输入工号' ref='username'/>
+                    <input type="password" className="password" ref='password' placeholder='请输入密码'/>
+                    <button className="loginBtn2" onClick={this.onLoginRequest.bind(this)}>登录</button>
+                </form>
+            </div>
+        </div>;
 
-                </div>
-
-            </nav>
-            <form className="searchForm">
-                    <input type="text" ref='orderNumber' className="searchInput"  placeholder='您可以输入订单号进行查询'/>
-                <button  className="searchBtn" onClick={this.onSearchBtn.bind(this)}>查询</button>
-            </form>
-
+        return <div>
+            {container}
         </div>
     }
+
 }
