@@ -2,26 +2,121 @@
   "ret": true,
   "data": [
     {
+      "orderId": "121212",
       "senderInfo": {
-        "name": "",
-        "company": "",
-        "fixPhone": "",
-        "tel": "",
-        "addr": "",
-        "addrDetail": "",
-        "thingsType": "",
-        "weight": ""
+        "name": "zhoujie",
+        "company": "西瓜公司",
+        "fixPhone": "88888888",
+        "tel": "15633333333",
+        "addr": "陕西省西安市长安区",
+        "addrDetail": "子午大道",
+        "thingsType": "文件",
+        "weight": "3"
       },
       "receiverInfo": {
-        "name": "",
-        "company": "",
-        "fixPhone": "",
-        "tel": "",
-        "addr": "",
-        "addrDetail": ""
+        "name": "zhoujie2",
+        "company": "西瓜公司2",
+        "fixPhone": "888888882",
+        "tel": "156333333332",
+        "addr": "陕西省西安市长安区2",
+        "addrDetail": "子午大道2"
       },
       "orderStatus": [
-        "已揽件"
+        {
+          "date": "2018-01-01",
+          "state": [
+            {
+              "time": "01:45:45",
+              "state": "已揽件",
+              "remark":""
+            },
+            {
+              "time": "02:45:45",
+              "state": "运输中",
+              "remark": "快件到达B转运站"
+            }
+          ]
+        }
+        ,{
+          "date": "2018-01-02",
+          "state": [
+            {
+              "time": "01:45:45",
+              "state": "运输中",
+              "remark": "快件到达c转运站"
+            },
+            {
+              "time": "02:45:45",
+              "state": "派送中",
+              "remark": "派送员：张晓某 13667023399"
+            },
+            {
+              "time": "04:45:45",
+              "state": "已签收",
+              "remark": "本人签收"
+            }
+
+          ]
+        }
+      ]
+    },
+    {
+      "orderId": "121213",
+      "senderInfo": {
+        "name": "zhoujie",
+        "company": "西瓜公司",
+        "fixPhone": "88888888",
+        "tel": "15633333333",
+        "addr": "陕西省西安市长安区",
+        "addrDetail": "子午大道",
+        "thingsType": "文件",
+        "weight": "3"
+      },
+      "receiverInfo": {
+        "name": "zhoujie2",
+        "company": "西瓜公司2",
+        "fixPhone": "888888882",
+        "tel": "156333333332",
+        "addr": "陕西省西安市长安区2",
+        "addrDetail": "子午大道2"
+      },
+      "orderStatus": [
+        {
+          "date": "2018-01-01",
+          "state": [
+            {
+              "time": "01:45:45",
+              "state": "已揽件",
+              "remark":""
+            },
+            {
+              "time": "02:45:45",
+              "state": "运输中",
+              "remark": "快件到达B转运站"
+            }
+          ]
+        }
+      ,{
+          "date": "2018-01-02",
+          "state": [
+            {
+              "time": "01:45:45",
+              "state": "运输中",
+              "remark": "快件到达c转运站"
+            },
+            {
+              "time": "02:45:45",
+              "state": "派送中",
+              "remark": "派送员：张晓某 13667023399"
+            },
+            {
+              "time": "04:45:45",
+              "state": "已签收",
+              "remark": "本人签收"
+            }
+
+          ]
+        }
       ]
     }
   ]

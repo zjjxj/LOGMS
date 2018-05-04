@@ -10,7 +10,8 @@ export default class SuperAdminPage extends React.Component {
         this.state = {
             activityTab: 0,
             userArr: [],
-            id:props.params.id
+            id: props.params.id,
+            orderArr: []
         }
 
 
@@ -29,9 +30,22 @@ export default class SuperAdminPage extends React.Component {
                     userArr: myJson
                 });
             });
+
+        fetch('/getAllOrder',
+            {
+                method: 'GET'
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then((myJson) => {
+                this.setState({
+                    orderArr: myJson
+                });
+            });
     }
 
-    onfindUserBtn(e){
+    onfindUserBtn(e) {
         e.preventDefault();
         console.log("dsds")
         const id = this.refs.idInput.value;
@@ -43,11 +57,11 @@ export default class SuperAdminPage extends React.Component {
                 return response.json();
             })
             .then((myJson) => {
-                if(myJson.length){
+                if (myJson.length) {
                     this.setState({
                         userArr: myJson
                     });
-                }else{
+                } else {
                     return false;
                 }
 
@@ -72,31 +86,31 @@ export default class SuperAdminPage extends React.Component {
         })
     }
 
-    onSignInClick(){
-        const name=this.refs.nameInput.value;
-        const tel=this.refs.telInput.value;
-        const password=this.refs.passwordInput.value;
-        const idCard=this.refs.idCardInput.value;
-        const addr=this.refs.addrInput.value;
-        const sex=this.refs.sexInput.value;
-        const birth=this.refs.birthInput.value;
-        const post=this.refs.postInput.value;
+    onSignInClick() {
+        const name = this.refs.nameInput.value;
+        const tel = this.refs.telInput.value;
+        const password = this.refs.passwordInput.value;
+        const idCard = this.refs.idCardInput.value;
+        const addr = this.refs.addrInput.value;
+        const sex = this.refs.sexInput.value;
+        const birth = this.refs.birthInput.value;
+        const post = this.refs.postInput.value;
 
-        const info = {name,tel,password,idCard,addr,sex,birth,post};
+        const info = {name, tel, password, idCard, addr, sex, birth, post};
 
         fetch('/addUser',
             {
-                method:'POST',
-                body:JSON.stringify(info),
+                method: 'POST',
+                body: JSON.stringify(info),
                 headers: new Headers({'Content-Type': 'application/json'})
             })
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(myJson) {
-                if(myJson.ret){
+            .then(function (myJson) {
+                if (myJson.ret) {
                     alert("注册成功！")
-                }else{
+                } else {
                     alert("注册失败！")
                 }
             });
@@ -106,8 +120,27 @@ export default class SuperAdminPage extends React.Component {
         browserHistory.push('/');
     }
 
+    searchOrder() {
+        fetch(`/findOrderById?id=${this.refs.orderNumInput.value}`,
+            {
+                method: 'GET'
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then((myJson) => {
+                if (myJson.length) {
+                    this.setState({
+                        orderArr: myJson
+                    })
+                } else {
+                    return false;
+                }
+            });
+    }
+
     render() {
-        const {userArr, activityTab,id} = this.state;
+        const {userArr, activityTab, id, orderArr} = this.state;
         console.log(userArr)
         let containerStyle = ["content userManager", "content userSignIn js-hide", "content orderManager js-hide"];
         let tabHtml;
@@ -134,7 +167,8 @@ export default class SuperAdminPage extends React.Component {
                 <span>人员注册</span>
                 <span className="activityTab">订单统计</span>
             </div>
-        };
+        }
+        ;
 
 
         return <div className="content">
@@ -149,7 +183,7 @@ export default class SuperAdminPage extends React.Component {
                     <div className={containerStyle[0]}>
                         <form className="userSearch">
                             <input type="text" placeholder="请输入员工号" ref='idInput'/>
-                            <button onClick={this.onfindUserBtn.bind(this)} >查询</button>
+                            <button onClick={this.onfindUserBtn.bind(this)}>查询</button>
                         </form>
                         <div className="userList">
                             <div className="list-title">
@@ -160,8 +194,8 @@ export default class SuperAdminPage extends React.Component {
                                 <span>岗位</span>
                                 <span>详细信息</span>
                             </div>
-                            {userArr.map((item,index)=>{
-                                return  <div className="list-item" key={index}>
+                            {userArr.map((item, index) => {
+                                return <div className="list-item" key={index}>
                                     <span>{item.id}</span>
                                     <span>{item.name}</span>
                                     <span>{item.sex}</span>
@@ -226,8 +260,8 @@ export default class SuperAdminPage extends React.Component {
                     </div>
                     <div className={containerStyle[2]}>
                         <form className="orderSearch">
-                            <input type="text" placeholder="请输入订单号"/>
-                            <button >查询</button>
+                            <input type="text" placeholder="请输入订单号" ref="orderNumInput"/>
+                            <button onClick={this.searchOrder.bind(this)}>查询</button>
                         </form>
                         <div className="orderList">
                             <div className="list-title">
@@ -236,64 +270,14 @@ export default class SuperAdminPage extends React.Component {
                                 <span>订单详情</span>
 
                             </div>
-                            <div className="list-item">
-                                <span>1</span>
-                                <span>已签收</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-                            <div className="list-item">
-                                <span>2</span>
-                                <span>待揽件</span>
-                                <span><a href="#">订单详情</a></span>
-
-                            </div>
-                            <div className="list-item">
-                                <span>3</span>
-                                <span>已揽件</span>
-                                <span><a href="#">订单详情</a></span>
-
-                            </div>
-                            <div className="list-item">
-                                <span>4</span>
-                                <span>运输中</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-                            <div className="list-item">
-                                <span>5</span>
-                                <span>带投递</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-                            <div className="list-item">
-                                <span>6</span>
-                                <span>运输中</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-                            <div className="list-item">
-                                <span>7</span>
-                                <span>待揽件</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-                            <div className="list-item">
-                                <span>8</span>
-                                <span>已签收</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-                            <div className="list-item">
-                                <span>9</span>
-                                <span>待投递</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-                            <div className="list-item">
-                                <span>10</span>
-                                <span>已签收</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-                            <div className="list-item">
-                                <span>11</span>
-                                <span>已签收</span>
-                                <span><a href="#">订单详情</a></span>
-                            </div>
-
+                            {orderArr.map((item,i) => {
+                                let url = `/orderDetail/${item.orderId}`;
+                                return <div className="list-item" key={i}>
+                                    <span>{item.orderId}</span>
+                                    <span>{item.orderStatus[0].state[0].state}</span>
+                                    <span><a href={url}>订单详情</a></span>
+                                </div>
+                            })}
                         </div>
                     </div>
                 </section>

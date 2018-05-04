@@ -8,7 +8,8 @@ export default class SenderPage extends React.Component {
         super(props);
 
         this.state = {
-            activityTab: 0
+            activityTab: 0,
+            id: props.params.id
         }
     }
 
@@ -30,6 +31,11 @@ export default class SenderPage extends React.Component {
 
     }
 
+    onLogOut(){
+        browserHistory.push('/');
+
+    }
+
     render() {
         let activityTab = this.state.activityTab;
         let containerStyle = ["", "", ""];
@@ -41,8 +47,8 @@ export default class SenderPage extends React.Component {
             <div className='page'>
                 <nav className='head'>
                     <p className="navbar-text">LOG物流管理系统</p>
-                    <span>欢迎你~~ <span> 011111</span><span>(派送员)</span></span>
-                    <span className="loginBtn">登出</span>
+                    <span>欢迎你~~ <span>{this.state.id}</span><span>(派送员)</span></span>
+                    <span className="loginBtn" onClick={this.onLogOut.bind(this)}>登出</span>
                 </nav>
                 <section className="poster-main">
                     <div className="tab" onClick={this.onTabClick.bind(this)}>

@@ -1,26 +1,26 @@
-require ('../../css/homePage.css');
+require('../../css/homePage.css');
 
 import React from 'react';
 import {browserHistory} from 'react-router';
 
 export default class HomePage extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            name:"",
-            password:"",
-            showLoginForm:false
+        this.state = {
+            name: "",
+            password: "",
+            showLoginForm: false
         }
     }
 
-    onLoginBtn(){
+    onLoginBtn() {
         this.setState({
-            showLoginForm:true
+            showLoginForm: true
 
         })
     }
 
-    onLoginRequest(e){
+    onLoginRequest(e) {
         e.preventDefault();
 
         const username = this.refs.username.value;
@@ -29,16 +29,16 @@ export default class HomePage extends React.Component {
         // browserHistory.push("/posterPage");
         fetch('/login',
             {
-                method:'POST',
-                body:JSON.stringify({username,password}),
+                method: 'POST',
+                body: JSON.stringify({username, password}),
                 headers: new Headers({'Content-Type': 'application/json'})
             })
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(myJson) {
-                if(myJson.ret){
-                    switch (myJson.data.post){
+            .then(function (myJson) {
+                if (myJson.ret) {
+                    switch (myJson.data.post) {
                         case "系统管理员":
                             browserHistory.push(`/superAdminPage/${myJson.data.id}`);
                             break;
@@ -55,7 +55,7 @@ export default class HomePage extends React.Component {
                             browserHistory.push(`/scanningPage/${myJson.data.id}`);
                             break;
                     }
-                }else{
+                } else {
                     alert(myJson.errorMessage);
                 }
             });
@@ -65,31 +65,43 @@ export default class HomePage extends React.Component {
 
     }
 
-    onSearchBtn(e){
-        browserHistory.push("/orderDetail");
+    onSearchBtn(e) {
         e.preventDefault();
-        const orderNumber=this.refs.orderNumber.value;
-        if(!orderNumber){
-            alert("订单号不得为空！")
-        }
-        // this.props.onSearchBtn(orderNumber);
+        const orderNumber = this.refs.orderNumber.value;
+
+        fetch(`/findOrderById?id=${orderNumber}`,
+            {
+                method: 'GET'
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                if (myJson.length) {
+                    browserHistory.push(`/orderDetail/${orderNumber}`);
+                } else {
+                    alert("订单不存在！")
+                }
+            });
     }
 
-    onShadowClick(){
+    onShadowClick() {
         this.setState({
-            showLoginForm:false
+            showLoginForm: false
         })
     }
-    componentWillReceiveProps(nextProps){
-        if(nextProps.searchOrderTip.tip==='success'){
-            browserHistory.push(`/orderDetail`);
-        }else{
-            alert('订单不存在！')
-        }
 
-        console.log(nextProps.searchOrderTip)
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.searchOrderTip.tip === 'success') {
+    //         browserHistory.push(`/orderDetail`);
+    //     } else {
+    //         alert('订单不存在！')
+    //     }
+    //
+    //     console.log(nextProps.searchOrderTip)
+    //
+    // }
 
-    }
     render() {
         const isShowLoginForm = this.state.showLoginForm;
         const container = !isShowLoginForm ? <div className="content">
@@ -99,7 +111,7 @@ export default class HomePage extends React.Component {
                     <span className="loginBtn" onClick={this.onLoginBtn.bind(this)}>登录</span>
                 </nav>
                 <form className="searchForm">
-                    <input type="text" className="searchInput" placeholder='您可以输入订单号进行查询'/>
+                    <input type="text" className="searchInput" placeholder='您可以输入订单号进行查询' ref="orderNumber"/>
                     <button className="searchBtn" onClick={this.onSearchBtn.bind(this)}>马上查单</button>
                 </form>
 

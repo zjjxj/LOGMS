@@ -31,7 +31,7 @@ const store = createMiddlewareStore(reducer);
 render(<Provider store={store}>
     <Router history={browserHistory}>
         <Route path="/" component={HomePage}/>
-        <Route path="/orderDetail" component={OrderDetail}/>
+        <Route path="/orderDetail/:id" component={OrderDetail}/>
         <Route path="/loginPage" component={LoginPage}/>
         <Route path="/adminPage/:id" component={AdminPage}/>
         <Route path="/senderPage/:id" component={SenderPage}/>

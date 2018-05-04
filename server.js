@@ -79,6 +79,37 @@ app.get('/findUserById', (req, res) => {
     }
 });
 
+//添加订单
+app.post("/addOrder",(req,res)=>{
+    const info = req.body;
+    res.json({"ret":true});
+});
+
+//根据id查找订单
+app.get('/findOrderById', (req, res) => {
+    const jsonData = jsonFile.readFileSync('./mock/order.json');
+    const orderArr = jsonData.data;
+    const id = req.query.id;
+    const order = orderArr.find((item, index) => {
+        return item.orderId === id
+    });
+
+    if (order) {
+        res.json([order]);
+
+    } else {
+        res.json([]);
+    }
+});
+
+//获取全部订单
+app.get('/getAllOrder',function (req,res) {
+    const jsonData = jsonFile.readFileSync('./mock/order.json');
+    const orderArr = jsonData.data;
+
+    res.json(orderArr);
+});
+
 
 app.use(function (req, res) {
     // res.set({
