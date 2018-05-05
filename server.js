@@ -21,10 +21,6 @@ app.use(bodyParser.json())
 app.use("/", express.static(__dirname + '/public'));
 
 
-app.get('/', (req, res) => {
-
-});
-
 //登录
 app.post('/login', (req, res) => {
     const {username, password} = req.body;
@@ -108,6 +104,15 @@ app.get('/getAllOrder',function (req,res) {
     const orderArr = jsonData.data;
 
     res.json(orderArr);
+});
+
+//更新订单状态
+app.post("/updateOrder",(req,res)=>{
+    const info = req.body.infoObj;
+    const id = req.body.id;
+
+    console.log(info,id)
+    res.json({"ret":true});
 });
 
 

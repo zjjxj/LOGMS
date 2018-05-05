@@ -47,7 +47,6 @@ export default class SuperAdminPage extends React.Component {
 
     onfindUserBtn(e) {
         e.preventDefault();
-        console.log("dsds")
         const id = this.refs.idInput.value;
         fetch(`/findUserById?id=${id}`,
             {
@@ -95,8 +94,9 @@ export default class SuperAdminPage extends React.Component {
         const sex = this.refs.sexInput.value;
         const birth = this.refs.birthInput.value;
         const post = this.refs.postInput.value;
+        const base = this.refs.baseInput.value;
 
-        const info = {name, tel, password, idCard, addr, sex, birth, post};
+        const info = {name, tel, password, idCard, addr, sex, birth, post,base};
 
         fetch('/addUser',
             {
@@ -141,18 +141,17 @@ export default class SuperAdminPage extends React.Component {
 
     render() {
         const {userArr, activityTab, id, orderArr} = this.state;
-        console.log(userArr)
-        let containerStyle = ["content userManager", "content userSignIn js-hide", "content orderManager js-hide"];
+        let containerStyle = ["contents userManager", "contents userSignIn js-hide", "contents orderManager js-hide"];
         let tabHtml;
         if (activityTab === 0) {
-            containerStyle = ["content userManager", "js-hide", "js-hide"];
+            containerStyle = ["contents userManager", "js-hide", "js-hide"];
             tabHtml = <div className="tab" onClick={this.onTabClick.bind(this)}>
                 <span className="activityTab">人员管理</span>
                 <span>人员注册</span>
                 <span>订单统计</span>
             </div>
         } else if (activityTab === 1) {
-            containerStyle = ["js-hide", "content userSignIn", "js-hide"];
+            containerStyle = ["js-hide", "contents userSignIn", "js-hide"];
 
             tabHtml = <div className="tab" onClick={this.onTabClick.bind(this)}>
                 <span>人员管理</span>
@@ -160,7 +159,7 @@ export default class SuperAdminPage extends React.Component {
                 <span>订单统计</span>
             </div>
         } else {
-            containerStyle = ["js-hide", "js-hide", "content orderManager"];
+            containerStyle = ["js-hide", "js-hide", "contents orderManager"];
 
             tabHtml = <div className="tab" onClick={this.onTabClick.bind(this)}>
                 <span>人员管理</span>
@@ -253,6 +252,19 @@ export default class SuperAdminPage extends React.Component {
                                     <option>揽件员</option>
                                     <option>站点管理员</option>
                                     <option>站点扫描员</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label>工作地点</label>
+                            <div className="contents">
+                                <select ref='baseInput'>
+                                    <option>站点A</option>
+                                    <option>站点B</option>
+                                    <option>站点C</option>
+                                    <option>站点D</option>
+                                    <option>站点E</option>
+                                    <option>站点F</option>
                                 </select>
                             </div>
                         </div>

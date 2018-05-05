@@ -9,7 +9,8 @@ export default class DeliveryPage extends React.Component {
         super(props);
 
         this.state = {
-            id:props.params.id
+            id:props.params.id,
+            base:props.params.base
         }
 
     }
@@ -30,7 +31,9 @@ export default class DeliveryPage extends React.Component {
         const receiverTel = this.refs.receiverTel.value;
         const receiverAddr = this.refs.receiverAddr.value;
         const receiverAddrDetail = this.refs.receiverAddrDetail.value;
-
+        let myDate = new Date();
+        let date = `${myDate.getFullYear()}-${myDate.getMonth()}-${myDate.getDate()}`;
+        let time = `${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`;
         const result = {
             "senderInfo": {
                 "name": senderName,
@@ -51,7 +54,18 @@ export default class DeliveryPage extends React.Component {
                 "addrDetail": receiverAddrDetail
             },
             "orderStatus": [
-                "已揽件"
+                {
+                    "date": date,
+                    "state": [
+                        {
+                            "time": time,
+                            "state": "已揽件",
+                            "remark":"",
+                            "personBase":"站点A",
+                            "dealPersonId":this.state.id
+                        }
+                    ]
+                }
             ]
         };
 
@@ -72,7 +86,6 @@ export default class DeliveryPage extends React.Component {
                 }
             });
 
-        console.log(result);
     }
 
     onLogOut(){

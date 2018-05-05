@@ -8,7 +8,10 @@ export default class ScanningPage extends React.Component {
         super(props);
 
         this.state = {
-            activityTab: 0
+            activityTab: 0,
+            id: props.params.id,
+            base: props.params.base,
+            upDateInfo: `快件到达${props.params.base}`
         }
     }
 
@@ -30,15 +33,96 @@ export default class ScanningPage extends React.Component {
 
     }
 
+    postUpdateInfo(id, infoObj) {
+        fetch('/updateOrder',
+            {
+                method: 'POST',
+                body: JSON.stringify({id, infoObj}),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                if (myJson.ret) {
+                    alert("更新成功！")
+                } else {
+                    alert("更新失败！")
+                }
+            });
+
+    }
+
+    updateOrder() {
+        const orderId = this.refs.orderNumber.value;
+        const remark = this.refs.updateInfo.value;
+        const {base,id} = this.state;
+
+        fetch(`/findOrderById?id=${orderId}`,
+            {
+                method: 'GET'
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then((myJson) => {
+                if (myJson.length) {
+                    let myDate = new Date();
+                    let info = myJson[0];
+                    let date = `${myDate.getFullYear()}-${myDate.getMonth()}-${myDate.getDate()}`;
+                    let time = `${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`;
+                    let t = info.orderStatus.find((item) => {
+                        if (item.date === date) {
+                            item.state.unshift({
+                                time: time,
+                                state: "运输中",
+                                remark: remark,
+                                personBase: base,
+                                dealPersonId: id
+                            });
+                            return true;
+                        }
+                    });
+                    if (!t) {
+
+                        info.orderStatus.unshift({
+                            date: date,
+                            state: [{
+                                time: time,
+                                state: "运输中",
+                                remark: remark,
+                                personBase:base,
+                                dealPersonId: id
+                            }]
+                        })
+                    }
+                    this.postUpdateInfo(orderId, myJson[0]);
+                } else {
+                    alert("订单不存在！")
+                }
+            });
+    }
+
+    onInputChange(e) {
+        this.setState({
+            upDateInfo: e.target.value
+        })
+    }
+
+    onLogOut() {
+        browserHistory.push('/');
+
+    }
+
     render() {
         let activityTab = this.state.activityTab;
         let containerStyle = ["scanningInfo", "stationInfo"];
         let tabStyle = ["", "", ""];
 
-        if(activityTab===0){
-            containerStyle=["scanningInfo","js-hide"];
-        }else{
-            containerStyle=["js-hide", "stationInfo"];
+        if (activityTab === 0) {
+            containerStyle = ["scanningInfo", "js-hide"];
+        } else {
+            containerStyle = ["js-hide", "stationInfo"];
 
         }
 
@@ -49,8 +133,8 @@ export default class ScanningPage extends React.Component {
             <div className='page'>
                 <nav className='head'>
                     <p className="navbar-text">LOG物流管理系统</p>
-                    <span>欢迎你~~ <span> 011111</span><span>（站点扫描员)</span></span>
-                    <span className="loginBtn">登出</span>
+                    <span>欢迎你~~ <span>{this.state.id}</span><span>（站点扫描员)</span></span>
+                    <span className="loginBtn" onClick={this.onLogOut.bind(this)}>登出</span>
                 </nav>
                 <section className="poster-main">
                     <div className="tab" onClick={this.onTabClick.bind(this)}>
@@ -58,20 +142,21 @@ export default class ScanningPage extends React.Component {
                         <span className={tabStyle[1]}>站点信息</span>
                     </div>
                     <div className="contents">
-                       <div className={containerStyle[0]}>
-                           <div>
-                               <label>请输入运单号</label>
-                               <input type="text"/>
+                        <div className={containerStyle[0]}>
+                            <div>
+                                <label>请输入运单号</label>
+                                <input type="text" ref="orderNumber"/>
 
-                           </div>
-                           <div>
-                               <label>更新信息</label>
-                               <input type="text"/>
-                           </div>
-                           <button>更新</button>
-                       </div>
+                            </div>
+                            <div>
+                                <label>更新信息</label>
+                                <input type="text" ref="updateInfo" value={this.state.upDateInfo}
+                                       onChange={this.onInputChange.bind(this)}/>
+                            </div>
+                            <button onClick={this.updateOrder.bind(this)}>更新</button>
+                        </div>
                         <div className={containerStyle[1]}>
-                            站点名称：<span>A转运站</span>
+                            站点名称：<span>{this.state.base}</span>
                         </div>
                     </div>
 

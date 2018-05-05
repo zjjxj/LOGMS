@@ -26,38 +26,22 @@
           "date": "2018-01-01",
           "state": [
             {
+              "time": "02:45:45",
+              "state": "运输中",
+              "remark": "快件到达B转运站",
+              "personBase":"站点A",
+              "dealPersonId":"111111"
+            },
+            {
               "time": "01:45:45",
               "state": "已揽件",
-              "remark":""
-            },
-            {
-              "time": "02:45:45",
-              "state": "运输中",
-              "remark": "快件到达B转运站"
+              "remark":"",
+              "personBase":"站点A",
+              "dealPersonId":"111111"
             }
           ]
         }
-        ,{
-          "date": "2018-01-02",
-          "state": [
-            {
-              "time": "01:45:45",
-              "state": "运输中",
-              "remark": "快件到达c转运站"
-            },
-            {
-              "time": "02:45:45",
-              "state": "派送中",
-              "remark": "派送员：张晓某 13667023399"
-            },
-            {
-              "time": "04:45:45",
-              "state": "已签收",
-              "remark": "本人签收"
-            }
 
-          ]
-        }
       ]
     },
     {
@@ -82,37 +66,47 @@
       },
       "orderStatus": [
         {
-          "date": "2018-01-01",
+          "date": "2018-1-1",
           "state": [
             {
               "time": "01:45:45",
               "state": "已揽件",
-              "remark":""
+              "remark":"",
+              "personBase":"站点A",
+              "dealPersonId":"111111"
             },
             {
               "time": "02:45:45",
               "state": "运输中",
-              "remark": "快件到达B转运站"
+              "remark": "快件到达B转运站",
+              "personBase":"站点A",
+              "dealPersonId":"111111"
             }
           ]
         }
       ,{
-          "date": "2018-01-02",
+          "date": "2018-1-2",
           "state": [
             {
               "time": "01:45:45",
               "state": "运输中",
-              "remark": "快件到达c转运站"
+              "remark": "快件到达c转运站",
+              "personBase":"站点A",
+              "dealPersonId":"111111"
             },
             {
               "time": "02:45:45",
               "state": "派送中",
-              "remark": "派送员：张晓某 13667023399"
+              "remark": "派送员：张晓某 13667023399",
+              "personBase":"站点A",
+              "dealPersonId":"111111"
             },
             {
               "time": "04:45:45",
               "state": "已签收",
-              "remark": "本人签收"
+              "remark": "本人签收",
+              "personBase":"站点A",
+              "dealPersonId":"111111"
             }
 
           ]

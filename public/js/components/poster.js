@@ -9,7 +9,8 @@ export default class SenderPage extends React.Component {
 
         this.state = {
             activityTab: 0,
-            id: props.params.id
+            id: props.params.id,
+            base: props.params.base
         }
     }
 
@@ -38,8 +39,15 @@ export default class SenderPage extends React.Component {
 
     render() {
         let activityTab = this.state.activityTab;
-        let containerStyle = ["", "", ""];
+        let containerStyle = ["contents notFinished", "contents finished", "contents personal"];
         let tabStyle = ["", "", ""];
+        if(activityTab===0){
+            containerStyle = ["contents notFinished", "js-hide", "js-hide"];
+        }else if(activityTab===1){
+            containerStyle = ["js-hide", "contents finished", "js-hide"];
+        }else{
+            containerStyle = ["js-hide", "js-hide", "contents personal"];
+        }
 
         tabStyle[activityTab] = "activityTab";
 
@@ -56,11 +64,11 @@ export default class SenderPage extends React.Component {
                         <span className={tabStyle[1]}>已完成订单(1)</span>
                         <span className={tabStyle[2]}>个人中心</span>
                     </div>
-                    <div className="contents">
+                    <div className={containerStyle[0]}>
                         <div className="orderItem">
                             <div>订单号：1212211</div>
                             <div>
-                                <span><label>收件人: </label><span>张小明</span></span> |
+                                <span><label>收件人: </label><span>张小明1</span></span> |
                                 <span><label>手机号:</label><span>13521212345</span></span> |
                                 <span><label>地址:</label><span>北京市海淀区西小口东升科技园</span></span>
                             </div>
@@ -71,12 +79,34 @@ export default class SenderPage extends React.Component {
                             </div>
                             <div className="orderItemBtn">
                                 <a href="#">查看地图</a>
-                                <button>已签收</button>
+                                <button className="notFinishBtn">待派送</button>
                             </div>
                         </div>
 
                     </div>
+                    <div className={containerStyle[1]}>
+                        <div className="orderItem">
+                            <div>订单号：1212211</div>
+                            <div>
+                                <span><label>收件人: </label><span>张小明2</span></span> |
+                                <span><label>手机号:</label><span>13521212345</span></span> |
+                                <span><label>地址:</label><span>北京市海淀区西小口东升科技园</span></span>
+                            </div>
+                            <div>
+                                <span><label>寄件人: </label><span>王小明</span></span> |
+                                <span><label>手机号: </label><span>13521212345</span></span> |
+                                <span><label>地址: </label><span>西安邮电大学长安校区</span></span>
+                            </div>
+                            <div className="orderItemBtn">
+                                <a href="#">查看地图</a>
+                                <button className="finishBtn">已签收</button>
+                            </div>
+                        </div>
 
+                    </div>
+                    <div className={containerStyle[2]}>
+                       个人中心
+                    </div>
                 </section>
 
             </div>

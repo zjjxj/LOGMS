@@ -43,16 +43,16 @@ export default class HomePage extends React.Component {
                             browserHistory.push(`/superAdminPage/${myJson.data.id}`);
                             break;
                         case "派送员":
-                            browserHistory.push(`/posterPage/${myJson.data.id}`);
+                            browserHistory.push(`/posterPage/${myJson.data.id}/${myJson.data.base}`);
                             break;
                         case "站点管理员":
-                            browserHistory.push(`/adminPage/${myJson.data.id}`);
+                            browserHistory.push(`/adminPage/${myJson.data.id}/${myJson.data.base}`);
                             break;
                         case "揽件员":
-                            browserHistory.push(`/deliveryPage/${myJson.data.id}`);
+                            browserHistory.push(`/deliveryPage/${myJson.data.id}/${myJson.data.base}`);
                             break;
                         case "站点扫描员":
-                            browserHistory.push(`/scanningPage/${myJson.data.id}`);
+                            browserHistory.push(`/scanningPage/${myJson.data.id}/${myJson.data.base}`);
                             break;
                     }
                 } else {

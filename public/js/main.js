@@ -33,11 +33,11 @@ render(<Provider store={store}>
         <Route path="/" component={HomePage}/>
         <Route path="/orderDetail/:id" component={OrderDetail}/>
         <Route path="/loginPage" component={LoginPage}/>
-        <Route path="/adminPage/:id" component={AdminPage}/>
+        <Route path="/adminPage/:id/:base" component={AdminPage}/>
         <Route path="/senderPage/:id" component={SenderPage}/>
         <Route path="/superAdminPage/:id" component={superAdminPage}/>
-        <Route path="/posterPage/:id" component={poster}/>
-        <Route path="/deliveryPage/:id" component={deliveryPage}/>
-        <Route path="/scanningPage/:id" component={scanningManPage}/>
+        <Route path="/posterPage/:id/:base" component={poster}/>
+        <Route path="/deliveryPage/:id/:base" component={deliveryPage}/>
+        <Route path="/scanningPage/:id/:base" component={scanningManPage}/>
     </Router>
 </Provider>, document.getElementById("content"));
