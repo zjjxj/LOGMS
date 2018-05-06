@@ -11,8 +11,8 @@ export default class OrderDetail extends React.Component {
             activityTab: 0,
             id: props.params.id,
             orderInfo: {
-                "orderId": "121212",
-                "senderInfo": {
+                _id: "121212",
+                senderInfo: {
                     "name": "",
                     "company": "西瓜公司",
                     "fixPhone": "88888888",
@@ -22,7 +22,7 @@ export default class OrderDetail extends React.Component {
                     "thingsType": "文件",
                     "weight": "3"
                 },
-                "receiverInfo": {
+                receiverInfo: {
                     "name": "zhoujie2",
                     "company": "西瓜公司2",
                     "fixPhone": "888888882",
@@ -30,7 +30,7 @@ export default class OrderDetail extends React.Component {
                     "addr": "陕西省西安市长安区2",
                     "addrDetail": "子午大道2"
                 },
-                "orderStatus": [
+                orderStatus: [
                     {
                         "date": "2018-01-01",
                         "state": [
@@ -124,7 +124,7 @@ export default class OrderDetail extends React.Component {
                     <div className="orderDetailTitle">
                         <div className="orderInfo">
                             <span>{orderInfo.senderInfo.addr}--->{orderInfo.receiverInfo.addr}</span>
-                            <span>订单号：{orderInfo.orderId}</span>
+                            <span>订单号：{orderInfo._id}</span>
                         </div>
 
                         <span>{orderInfo.orderStatus[0].state[0].state}</span>
@@ -143,7 +143,7 @@ export default class OrderDetail extends React.Component {
                                 <div className="nodeContent">
                                     {item.state.map((value,i)=>{
                                         return <div key={i}>
-                                            <span>{value.time}</span>
+                                            <span>{value.time} </span>
                                             <span>{value.state} {value.remark}</span>
                                         </div>
                                     })}

@@ -9,7 +9,7 @@ export default class SuperAdminPage extends React.Component {
         super(props);
         this.state = {
             activityTab: 0,
-            orderList: [{orderId: 111}, {orderId: 111}],
+            orderList: [{_id: 111}, {_id: 111}],
             deliverList: [{}],
             id: props.params.id,
             base: props.params.base,
@@ -28,9 +28,7 @@ export default class SuperAdminPage extends React.Component {
                 return response.json();
             })
             .then((myJson) => {
-                console.log("all",myJson)
                 let orderArr = myJson.filter((item) => {
-                    console.log(this.state.base)
                     return (item.orderStatus[0].state[0].personBase === this.state.base) && (item.orderStatus[0].state[0].state === "运输中");
                 });
                 let finishArr = myJson.filter((item) => {
@@ -63,14 +61,14 @@ export default class SuperAdminPage extends React.Component {
     }
 
     onTabClick(e) {
-        const target = e.target.innerText;
+        const target = e.target.innerText.split("")[0];
         let tab = 0;
-        if (target === "待分配订单") {
+        if (target === "待") {
             tab = 0;
-        } else if (target === "已分配订单") {
+        } else if (target === "已") {
             tab = 1;
 
-        } else if (target === "站点派送员") {
+        } else if (target === "站") {
             tab = 2;
         }
 
@@ -102,7 +100,7 @@ export default class SuperAdminPage extends React.Component {
                     let copyFinishOrder = Object.assign([], finishOrder);
                     let index = 0;
                     let deleteOrder = copyOrderList.find((item, i) => {
-                        if (item.orderId === id) {
+                        if (item._id === id) {
                             index = i;
                             return true;
                         }
@@ -113,7 +111,7 @@ export default class SuperAdminPage extends React.Component {
                     this.setState({
                         orderList: copyOrderList,
                         finishOrder: copyFinishOrder
-                    })
+                    });
                     alert("更新成功！")
                 } else {
                     alert("更新失败！")
@@ -123,11 +121,12 @@ export default class SuperAdminPage extends React.Component {
     }
 
     onUpdateOrderBtn(e) {
-        const base = this.state.base;
-        const deliverId = this.refs.deliverInput.value.split(" ")[1];
-        const deliverName = this.refs.deliverInput.value.split(" ")[0];
+        let base = this.state.base;
+        let deliverId = this.refs[e.target.dataset.id].value.split("-")[1];
+        let deliverName = this.refs[e.target.dataset.id].value.split("-")[0];
+        let deliverTel = this.refs[e.target.dataset.id].value.split("-")[2];
         let infoObj = this.state.orderList[e.target.dataset.index];
-        let remark = `派送员:${deliverName}`;
+        let remark = `派送员:${deliverName}  ${deliverTel}`;
         let myDate = new Date();
         let date = `${myDate.getFullYear()}-${myDate.getMonth()}-${myDate.getDate()}`;
         let time = `${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`;
@@ -148,7 +147,6 @@ export default class SuperAdminPage extends React.Component {
                 }]
             })
         }
-
         this.postUpdateInfo(e.target.dataset.id, infoObj)
     }
 
@@ -162,36 +160,35 @@ export default class SuperAdminPage extends React.Component {
         if (activityTab === 0) {
             containerStyle = ["contents userManager", "js-hide", "js-hide"];
             tabHtml = <div className="tab" onClick={this.onTabClick.bind(this)}>
-                <span className="activityTab">待分配订单</span>
-                <span>已分配订单</span>
+                <span className="activityTab">待分配订单({orderList.length})</span>
+                <span>已分配订单({finishOrder.length})</span>
                 <span>站点派送员</span>
             </div>
         } else if (activityTab === 1) {
             containerStyle = ["js-hide", "contents userManager", "js-hide"];
 
             tabHtml = <div className="tab" onClick={this.onTabClick.bind(this)}>
-                <span>待分配订单</span>
-                <span className="activityTab">已分配订单</span>
+                <span>待分配订单({orderList.length})</span>
+                <span className="activityTab">已分配订单({finishOrder.length})</span>
                 <span>站点派送员</span>
             </div>
         } else {
             containerStyle = ["js-hide", "js-hide", "contents orderManager"];
 
             tabHtml = <div className="tab" onClick={this.onTabClick.bind(this)}>
-                <span>待分配订单</span>
-                <span>已分配订单</span>
+                <span>待分配订单({orderList.length})</span>
+                <span>已分配订单({finishOrder.length})</span>
                 <span className="activityTab">站点派送员</span>
             </div>
         }
         ;
 
 
-        console.log("haha", finishOrder)
         return <div className="content">
             <div className='page'>
                 <nav className='head'>
                     <p className="navbar-text">LOG物流管理系统</p>
-                    <span>欢迎你~~ <span>{this.state.id}</span><span>(站点管理员)</span></span>
+                    <span>欢迎你~~ <span>{this.state.id}</span><span>(站点管理员/{this.state.base})</span></span>
                     <span className="logoutBtn" onClick={this.onLogoutBtn.bind(this)}>登出</span>
                 </nav>
                 <section className="superAdmin-main">
@@ -199,17 +196,17 @@ export default class SuperAdminPage extends React.Component {
                     <div className={containerStyle[0]}>
                         {orderList.map((item, i) => {
                             return <div className="adminPageOrderItem" key={i}>
-                                <div className="admin-orderId">订单号: {item.orderId}</div>
+                                <div className="admin-orderId">订单号: {item._id}</div>
                                 <div className="adminPage-orderItem-bottom">
                                     <div className="admin-orderDelivery">
-                                        派送员: <select ref="deliverInput">
-                                        {deliverList.map((items, i) => {
-                                            return <option key={i} name={items.id}>{items.name} {items.id}</option>
+                                        派送员: <select data-id={item._id} ref={item._id}>
+                                        {deliverList.map((items, index) => {
+                                            return <option key={index}>{items.name}-{items._id}-{items.tel}</option>
                                         })}
                                     </select>
                                     </div>
                                     <button className="updateOrderBtn" onClick={this.onUpdateOrderBtn.bind(this)}
-                                            data-id={item.orderId} data-index={i}>确认分配
+                                            data-id={item._id} data-index={i}>确认分配
                                     </button>
                                 </div>
 
@@ -219,16 +216,12 @@ export default class SuperAdminPage extends React.Component {
                     <div className={containerStyle[1]}>
                         {finishOrder.map((item, i) => {
                             return <div className="adminPageOrderItem" key={i}>
-                                <div className="admin-orderId">订单号: {item.orderId}</div>
+                                <div className="admin-orderId">订单号: {item._id}</div>
                                 <div className="adminPage-orderItem-bottom">
                                     <div className="admin-orderDelivery">
-                                        派送员: <select ref="deliverInput">
-                                        {deliverList.map((items, i) => {
-                                            return <option key={i} name={items.id}>{items.name} {items.id}</option>
-                                        })}
-                                    </select>
+                                        派送员:{item.orderStatus[0].state[0].dealPersonId}
                                     </div>
-                                    <button className="finishOrderBtn" data-id={item.orderId} data-index={i}>已分配
+                                    <button className="finishOrderBtn" data-id={item._id} data-index={i}>{item.orderStatus[0].state[0].state}
                                     </button>
                                 </div>
 
@@ -244,9 +237,9 @@ export default class SuperAdminPage extends React.Component {
                                 <span>手机号</span>
 
                             </div>
-                            {this.state.deliverList.map((item) => {
-                                return <div className="list-item">
-                                    <span>{item.id}</span>
+                            {this.state.deliverList.map((item,i) => {
+                                return <div className="list-item" key={i}>
+                                    <span>{item._id}</span>
                                     <span>{item.name}</span>
                                     <span>{item.tel}</span>
                                 </div>

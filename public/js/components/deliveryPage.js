@@ -10,9 +10,26 @@ export default class DeliveryPage extends React.Component {
 
         this.state = {
             id:props.params.id,
-            base:props.params.base
+            base:props.params.base,
+            orderId:""
         }
 
+    }
+
+    componentDidMount(){
+
+        fetch('/getAllOrder',
+            {
+                method: 'GET'
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then((myJson) => {
+                this.setState({
+                    orderId: parseInt(myJson[myJson.length-1]._id)+1
+                });
+            });
     }
 
     onSubmitBtnClick() {
@@ -35,7 +52,8 @@ export default class DeliveryPage extends React.Component {
         let date = `${myDate.getFullYear()}-${myDate.getMonth()}-${myDate.getDate()}`;
         let time = `${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`;
         const result = {
-            "senderInfo": {
+            _id:this.state.orderId,
+            senderInfo: {
                 "name": senderName,
                 "company": senderCompany,
                 "fixPhone": senderFixPhone,
@@ -45,7 +63,7 @@ export default class DeliveryPage extends React.Component {
                 "thingsType": senderThingsType,
                 "weight": thingsWeight
             },
-            "receiverInfo": {
+            receiverInfo: {
                 "name": receiverName,
                 "company": receiverCompany,
                 "fixPhone": receiverFixPhone,
@@ -53,7 +71,7 @@ export default class DeliveryPage extends React.Component {
                 "addr": receiverAddr,
                 "addrDetail": receiverAddrDetail
             },
-            "orderStatus": [
+            orderStatus: [
                 {
                     "date": date,
                     "state": [
@@ -61,7 +79,7 @@ export default class DeliveryPage extends React.Component {
                             "time": time,
                             "state": "已揽件",
                             "remark":"",
-                            "personBase":"站点A",
+                            "personBase":this.state.base,
                             "dealPersonId":this.state.id
                         }
                     ]
@@ -102,6 +120,7 @@ export default class DeliveryPage extends React.Component {
                 </nav>
                 <div className="deliverMain">
                     <div className='sender'>
+                        <div className="orderNumberStyle">订单号：{this.state.orderId}</div>
                         <div className='formTitle'><span>寄件人信息</span><span className='redFont'>标题标*为必填项</span></div>
                         <div className='formContent'>
                             <div className='name mustOption'><label>姓名</label><input type="text" placeholder='请填写联系人姓名'

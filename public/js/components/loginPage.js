@@ -31,7 +31,7 @@ export default class LoginPage extends React.Component {
                 </div>
                 <div className="form-group">
                     <div className="col-sm-offset-2 col-sm-10">
-                        <select class="form-control" ref ="userType">
+                        <select className="form-control" ref ="userType">
                             <option>揽件员</option>
                             <option>派送员</option>
                             <option>站点扫描员</option>

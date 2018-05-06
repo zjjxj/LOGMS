@@ -95,8 +95,9 @@ export default class SuperAdminPage extends React.Component {
         const birth = this.refs.birthInput.value;
         const post = this.refs.postInput.value;
         const base = this.refs.baseInput.value;
+        const _id = this.refs._id.value;
 
-        const info = {name, tel, password, idCard, addr, sex, birth, post,base};
+        const info = {name, tel, password, idCard, addr, sex, birth, post,base,_id};
 
         fetch('/addUser',
             {
@@ -107,9 +108,15 @@ export default class SuperAdminPage extends React.Component {
             .then(function (response) {
                 return response.json();
             })
-            .then(function (myJson) {
+            .then((myJson)=> {
                 if (myJson.ret) {
                     alert("注册成功！")
+                    let newArr = Object.assign([],this.state.userArr);
+                    newArr.push(myJson.data)
+                    this.setState({
+                        userArr: newArr,
+
+                    });
                 } else {
                     alert("注册失败！")
                 }
@@ -120,7 +127,39 @@ export default class SuperAdminPage extends React.Component {
         browserHistory.push('/');
     }
 
-    searchOrder() {
+    deleteUser(e){
+        e.preventDefault();
+
+        let id=e.target.dataset.id;
+        let index=e.target.dataset.i;
+
+        fetch(`/deleteUser?id=${id}`,
+            {
+                method: 'GET',
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then((myJson)=> {
+                if (myJson.ret) {
+                    // alert("删除成功！")
+                    let newArr = Object.assign([],this.state.userArr);
+                    console.log(newArr,index)
+                    newArr.splice(index,1);
+                    this.setState({
+                        userArr: newArr,
+                    });
+                } else {
+                    // alert("删除失败！")
+                    console.log("删除失败")
+                }
+            });
+
+    }
+
+    searchOrder(e) {
+        e.preventDefault();
         fetch(`/findOrderById?id=${this.refs.orderNumInput.value}`,
             {
                 method: 'GET'
@@ -141,6 +180,7 @@ export default class SuperAdminPage extends React.Component {
 
     render() {
         const {userArr, activityTab, id, orderArr} = this.state;
+        const newUserId =userArr[userArr.length-1] && userArr[userArr.length-1]._id;
         let containerStyle = ["contents userManager", "contents userSignIn js-hide", "contents orderManager js-hide"];
         let tabHtml;
         if (activityTab === 0) {
@@ -166,8 +206,7 @@ export default class SuperAdminPage extends React.Component {
                 <span>人员注册</span>
                 <span className="activityTab">订单统计</span>
             </div>
-        }
-        ;
+        };
 
 
         return <div className="content">
@@ -189,24 +228,32 @@ export default class SuperAdminPage extends React.Component {
                                 <span>工号</span>
                                 <span>姓名</span>
                                 <span>性别</span>
-                                <span>出生日期</span>
+                                <span>工作地点</span>
                                 <span>岗位</span>
                                 <span>详细信息</span>
+                                <span>删除</span>
                             </div>
                             {userArr.map((item, index) => {
                                 return <div className="list-item" key={index}>
-                                    <span>{item.id}</span>
+                                    <span>{item._id}</span>
                                     <span>{item.name}</span>
                                     <span>{item.sex}</span>
-                                    <span>{item.birth}</span>
+                                    <span>{item.base}</span>
                                     <span>{item.post}</span>
                                     <span><a href="#">个人信息</a></span>
+                                    <span><button className="deleteUserBtn" data-id={item._id} data-i={index} onClick={this.deleteUser.bind(this)}>删除</button></span>
                                 </div>
                             })}
 
                         </div>
                     </div>
                     <div className={containerStyle[1]}>
+                        <div>
+                            <label>工号</label>
+                            <div className="contents">
+                                <input type="text" ref="_id" value={parseInt(newUserId,10)+1} disabled className = "disableInput"/>
+                            </div>
+                        </div>
                         <div>
                             <label>姓名</label>
                             <div className="contents">
@@ -259,12 +306,10 @@ export default class SuperAdminPage extends React.Component {
                             <label>工作地点</label>
                             <div className="contents">
                                 <select ref='baseInput'>
-                                    <option>站点A</option>
-                                    <option>站点B</option>
-                                    <option>站点C</option>
-                                    <option>站点D</option>
-                                    <option>站点E</option>
-                                    <option>站点F</option>
+                                    <option>A站点</option>
+                                    <option>B站点</option>
+                                    <option>C站点</option>
+                                    <option>D站点</option>
                                 </select>
                             </div>
                         </div>
@@ -283,9 +328,9 @@ export default class SuperAdminPage extends React.Component {
 
                             </div>
                             {orderArr.map((item,i) => {
-                                let url = `/orderDetail/${item.orderId}`;
+                                let url = `/orderDetail/${item._id}`;
                                 return <div className="list-item" key={i}>
-                                    <span>{item.orderId}</span>
+                                    <span>{item._id}</span>
                                     <span>{item.orderStatus[0].state[0].state}</span>
                                     <span><a href={url}>订单详情</a></span>
                                 </div>

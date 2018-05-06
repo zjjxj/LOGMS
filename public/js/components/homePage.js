@@ -40,28 +40,25 @@ export default class HomePage extends React.Component {
                 if (myJson.ret) {
                     switch (myJson.data.post) {
                         case "系统管理员":
-                            browserHistory.push(`/superAdminPage/${myJson.data.id}`);
+                            browserHistory.push(`/superAdminPage/${myJson.data._id}`);
                             break;
                         case "派送员":
-                            browserHistory.push(`/posterPage/${myJson.data.id}/${myJson.data.base}`);
+                            browserHistory.push(`/posterPage/${myJson.data._id}/${myJson.data.base}`);
                             break;
                         case "站点管理员":
-                            browserHistory.push(`/adminPage/${myJson.data.id}/${myJson.data.base}`);
+                            browserHistory.push(`/adminPage/${myJson.data._id}/${myJson.data.base}`);
                             break;
                         case "揽件员":
-                            browserHistory.push(`/deliveryPage/${myJson.data.id}/${myJson.data.base}`);
+                            browserHistory.push(`/deliveryPage/${myJson.data._id}/${myJson.data.base}`);
                             break;
                         case "站点扫描员":
-                            browserHistory.push(`/scanningPage/${myJson.data.id}/${myJson.data.base}`);
+                            browserHistory.push(`/scanningPage/${myJson.data._id}/${myJson.data.base}`);
                             break;
                     }
                 } else {
                     alert(myJson.errorMessage);
                 }
             });
-        // browserHistory.push("/deliveryPage");
-
-        // console.log({username,password})
 
     }
 

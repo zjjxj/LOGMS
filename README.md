@@ -8,3 +8,7 @@ npm start
 
 启动数据库：
 source ~/.bash_profile
+
+sudo mongod
+
+mongo
