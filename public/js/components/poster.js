@@ -175,7 +175,7 @@ export default class SenderPage extends React.Component {
                                     <span><label> 地址: </label><span> {item.receiverInfo.addr} </span></span>
                                 </div>
                                 <div className="orderItemBtn">
-                                    <a href="#">查看地图</a>
+                                    <a href="//map.baidu.com/">查看地图</a>
                                     <button data-id={item._id} data-index={i} className="notFinishBtn" onClick={this.onUpdateOrderBtn.bind(this)}>待派送</button>
                                 </div>
                             </div>
