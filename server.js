@@ -148,6 +148,24 @@ app.get('/findUserById', (req, res) => {
     });
 });
 
+//修改user
+app.post("/updateUser", (req, res) => {
+    const info = req.body.infoObj;
+    const id = req.body.id;
+    userModel.findById(id, function (err, user) {
+        if (!user) {
+            res.json({"ret": false});
+        } else {
+            // user.orderStatus = info.orderStatus;
+            user.save(function (err) {
+                console.log(err)
+            });
+            res.json({"ret": true});
+        }
+    });
+});
+
+
 //添加订单
 app.post("/addOrder", (req, res) => {
     const info = req.body;
@@ -159,6 +177,17 @@ app.post("/addOrder", (req, res) => {
         res.json({"ret": true, data: data});
     });
 
+});
+
+//删除订单
+app.get('/deleteOrder', function (req, res) {
+    const id = req.query.id;
+    orderModel.remove({_id: id}, function (err, data) {
+        if (err) {
+            return {ret:false};
+        }
+        res.json({ret:true});
+    });
 });
 
 //根据id查找订单

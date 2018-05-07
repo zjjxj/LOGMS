@@ -101,6 +101,10 @@ export default class OrderDetail extends React.Component {
         }
     }
 
+    onLogOut(){
+        browserHistory.push('/');
+    }
+
     render() {
         let tabStyle = ["", ""];
         let contentStyle = ["orderDetailContent", "orderDetailInfo js-hide"];
@@ -119,6 +123,7 @@ export default class OrderDetail extends React.Component {
             <div className='page'>
                 <nav className='head'>
                     <p className="navbar-text">LOG物流管理系统</p>
+                    <span className="loginBtn" onClick={this.onLogOut.bind(this)}>返回首页</span>
                 </nav>
                 <div className="orderDetail">
                     <div className="orderDetailTitle">

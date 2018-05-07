@@ -37,7 +37,7 @@ render(<Provider store={store}>
         <Route path="/senderPage/:id" component={SenderPage}/>
         <Route path="/superAdminPage/:id" component={superAdminPage}/>
         <Route path="/posterPage/:id/:base" component={poster}/>
-        <Route path="/deliveryPage/:id/:base" component={deliveryPage}/>
+        <Route path="/deliveryPage/:id/:base/:name" component={deliveryPage}/>
         <Route path="/scanningPage/:id/:base" component={scanningManPage}/>
     </Router>
 </Provider>, document.getElementById("content"));

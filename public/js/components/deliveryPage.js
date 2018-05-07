@@ -1,6 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-
+import CityInput from './cityInput';
 require('../../css/deliveryPage.css');
 
 
@@ -9,14 +9,15 @@ export default class DeliveryPage extends React.Component {
         super(props);
 
         this.state = {
-            id:props.params.id,
-            base:props.params.base,
-            orderId:""
+            id: props.params.id,
+            base: props.params.base,
+            name: props.params.name,
+            orderId: ""
         }
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
         fetch('/getAllOrder',
             {
@@ -27,7 +28,7 @@ export default class DeliveryPage extends React.Component {
             })
             .then((myJson) => {
                 this.setState({
-                    orderId: parseInt(myJson[myJson.length-1]._id)+1
+                    orderId: parseInt(myJson[myJson.length - 1]._id) + 1
                 });
             });
     }
@@ -52,7 +53,7 @@ export default class DeliveryPage extends React.Component {
         let date = `${myDate.getFullYear()}-${myDate.getMonth()}-${myDate.getDate()}`;
         let time = `${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`;
         const result = {
-            _id:this.state.orderId,
+            _id: this.state.orderId,
             senderInfo: {
                 "name": senderName,
                 "company": senderCompany,
@@ -78,39 +79,47 @@ export default class DeliveryPage extends React.Component {
                         {
                             "time": time,
                             "state": "已揽件",
-                            "remark":"",
-                            "personBase":this.state.base,
-                            "dealPersonId":this.state.id
+                            "remark": `揽件员:${this.state.name}${this.state.id}`,
+                            "personBase": this.state.base,
+                            "dealPersonId": this.state.id
                         }
                     ]
                 }
             ]
         };
 
-        fetch('/addOrder',
-            {
-                method:'POST',
-                body:JSON.stringify(result),
-                headers: new Headers({'Content-Type': 'application/json'})
-            })
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(myJson) {
-                if(myJson.ret){
-                    alert("下单成功！")
-                }else{
-                    alert("下单失败！")
-                }
-            });
+        if (!senderName || !senderTel || !senderAddr || !senderAddrDetail || !senderThingsType || !thingsWeight || !receiverName || !receiverTel || !receiverAddr || !receiverAddrDetail) {
+            alert("必填项不得为空！")
+        }else{
+            fetch('/addOrder',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(result),
+                    headers: new Headers({'Content-Type': 'application/json'})
+                })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    if (myJson.ret) {
+                        alert("下单成功！")
+                    } else {
+                        alert("下单失败！")
+                    }
+                });
+        }
+
+
 
     }
 
-    onLogOut(){
+    onLogOut() {
         browserHistory.push('/');
     }
 
     render() {
+
+
         return <div className="content">
             <div className='page'>
                 <nav className='head'>
@@ -119,18 +128,19 @@ export default class DeliveryPage extends React.Component {
                     <span className="logoutBtn" onClick={this.onLogOut.bind(this)}>登出</span>
                 </nav>
                 <div className="deliverMain">
+
                     <div className='sender'>
                         <div className="orderNumberStyle">订单号：{this.state.orderId}</div>
                         <div className='formTitle'><span>寄件人信息</span><span className='redFont'>标题标*为必填项</span></div>
                         <div className='formContent'>
                             <div className='name mustOption'><label>姓名</label><input type="text" placeholder='请填写联系人姓名'
-                                                                                     ref="senderName"/></div>
+                                                                                     ref="senderName" required/></div>
                             <div className='company'><label>寄件公司</label><input type="text" placeholder='请填写公司名称'
                                                                                ref="senderCompany"/></div>
                             <div className='company'><label>固话</label><input type="text" placeholder=''
                                                                              ref="senderFixPhone"/></div>
                             <div className='tel mustOption'><label>手机</label><input type="text" placeholder='请填写手机号'
-                                                                                    ref="senderTel"/></div>
+                                                                                    ref="senderTel" required/></div>
                             <div className='address mustOption'>
                                 <label>地址</label>
                                 <div className='adrInfo'>

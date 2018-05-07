@@ -98,29 +98,34 @@ export default class SuperAdminPage extends React.Component {
         const _id = this.refs._id.value;
 
         const info = {name, tel, password, idCard, addr, sex, birth, post,base,_id};
+        if(!name || !password||!idCard||!addr||!tel){
+            alert(("所有表单项不得为空！"))
+        }else{
+            fetch('/addUser',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(info),
+                    headers: new Headers({'Content-Type': 'application/json'})
+                })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then((myJson)=> {
+                    if (myJson.ret) {
+                        alert("注册成功！")
+                        let newArr = Object.assign([],this.state.userArr);
+                        newArr.push(myJson.data)
+                        this.setState({
+                            userArr: newArr,
 
-        fetch('/addUser',
-            {
-                method: 'POST',
-                body: JSON.stringify(info),
-                headers: new Headers({'Content-Type': 'application/json'})
-            })
-            .then(function (response) {
-                return response.json();
-            })
-            .then((myJson)=> {
-                if (myJson.ret) {
-                    alert("注册成功！")
-                    let newArr = Object.assign([],this.state.userArr);
-                    newArr.push(myJson.data)
-                    this.setState({
-                        userArr: newArr,
+                        });
+                    } else {
+                        alert("注册失败！")
+                    }
+                });
+        }
 
-                    });
-                } else {
-                    alert("注册失败！")
-                }
-            });
+
     }
 
     onLogoutBtn() {
@@ -149,6 +154,36 @@ export default class SuperAdminPage extends React.Component {
                     newArr.splice(index,1);
                     this.setState({
                         userArr: newArr,
+                    });
+                } else {
+                    // alert("删除失败！")
+                    console.log("删除失败")
+                }
+            });
+
+    }
+
+    deleteOrder(e){
+        e.preventDefault();
+
+        let id=e.target.dataset.id;
+        let index=e.target.dataset.i;
+
+        fetch(`/deleteOrder?id=${id}`,
+            {
+                method: 'GET',
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then((myJson)=> {
+                if (myJson.ret) {
+                    // alert("删除成功！")
+                    let newArr = Object.assign([],this.state.orderArr);
+                    newArr.splice(index,1);
+                    this.setState({
+                        orderArr: newArr,
                     });
                 } else {
                     // alert("删除失败！")
@@ -230,7 +265,7 @@ export default class SuperAdminPage extends React.Component {
                                 <span>性别</span>
                                 <span>工作地点</span>
                                 <span>岗位</span>
-                                <span>详细信息</span>
+                                {/*<span>详细信息</span>*/}
                                 <span>删除</span>
                             </div>
                             {userArr.map((item, index) => {
@@ -240,7 +275,7 @@ export default class SuperAdminPage extends React.Component {
                                     <span>{item.sex}</span>
                                     <span>{item.base}</span>
                                     <span>{item.post}</span>
-                                    <span><a href="#">个人信息</a></span>
+                                    {/*<span><a href="#">个人信息</a></span>*/}
                                     <span><button className="deleteUserBtn" data-id={item._id} data-i={index} onClick={this.deleteUser.bind(this)}>删除</button></span>
                                 </div>
                             })}
@@ -325,6 +360,7 @@ export default class SuperAdminPage extends React.Component {
                                 <span>订单号</span>
                                 <span>订单状态</span>
                                 <span>订单详情</span>
+                                <span>删除</span>
 
                             </div>
                             {orderArr.map((item,i) => {
@@ -333,6 +369,7 @@ export default class SuperAdminPage extends React.Component {
                                     <span>{item._id}</span>
                                     <span>{item.orderStatus[0].state[0].state}</span>
                                     <span><a href={url}>订单详情</a></span>
+                                    <span><button className="deleteUserBtn" data-id={item._id} data-i={i} onClick={this.deleteOrder.bind(this)}>删除</button></span>
                                 </div>
                             })}
                         </div>

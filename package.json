@@ -34,11 +34,13 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "antd": "^3.5.0",
     "body-parser": "^1.17.1",
     "express": "^4.16.2",
     "jsonfile": "^4.0.0",
     "mongodb": "^2.2.25",
     "mongoose": "^4.13.11",
+    "rctui": "^0.7.20",
     "react": "^15.5.0",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.4",

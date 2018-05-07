@@ -49,7 +49,7 @@ export default class HomePage extends React.Component {
                             browserHistory.push(`/adminPage/${myJson.data._id}/${myJson.data.base}`);
                             break;
                         case "揽件员":
-                            browserHistory.push(`/deliveryPage/${myJson.data._id}/${myJson.data.base}`);
+                            browserHistory.push(`/deliveryPage/${myJson.data._id}/${myJson.data.base}/${myJson.data.name}`);
                             break;
                         case "站点扫描员":
                             browserHistory.push(`/scanningPage/${myJson.data._id}/${myJson.data.base}`);
