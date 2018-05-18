@@ -158,7 +158,7 @@ export default class SenderPage extends React.Component {
                     <div className="tab" onClick={this.onTabClick.bind(this)}>
                         <span className={tabStyle[0]}>未完成订单({this.state.unFinishedOrder.length})</span>
                         <span className={tabStyle[1]}>已完成订单({this.state.finishedOrder.length})</span>
-                        <span className={tabStyle[2]}>个人中心</span>
+                        {/*<span className={tabStyle[2]}>个人中心</span>*/}
                     </div>
                     <div className={containerStyle[0]}>
                         {this.state.unFinishedOrder.map((item,i) => {

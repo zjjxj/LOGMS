@@ -150,7 +150,6 @@ export default class SuperAdminPage extends React.Component {
                 if (myJson.ret) {
                     // alert("删除成功！")
                     let newArr = Object.assign([],this.state.userArr);
-                    console.log(newArr,index)
                     newArr.splice(index,1);
                     this.setState({
                         userArr: newArr,

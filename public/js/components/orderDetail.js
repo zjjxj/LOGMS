@@ -136,7 +136,7 @@ export default class OrderDetail extends React.Component {
                     </div>
                     <div className="orderDetailTab" onClick={this.onTabClick.bind(this)}>
                         <span className={tabStyle[0]}>运单状态</span>
-                        <span className={tabStyle[1]}>运单详情</span>
+                        {/*<span className={tabStyle[1]}>运单详情</span>*/}
                     </div>
                     <div className={contentStyle[0]}>
                         {this.state.orderInfo.orderStatus.map((item,index)=>{

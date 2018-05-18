@@ -79,7 +79,7 @@ export default class DeliveryPage extends React.Component {
                         {
                             "time": time,
                             "state": "已揽件",
-                            "remark": `揽件员:${this.state.name}${this.state.id}`,
+                            "remark": `揽件员:${this.state.name}`,
                             "personBase": this.state.base,
                             "dealPersonId": this.state.id
                         }
@@ -124,7 +124,7 @@ export default class DeliveryPage extends React.Component {
             <div className='page'>
                 <nav className='head'>
                     <p className="navbar-text">LOG物流管理系统</p>
-                    <span>欢迎你~~ <span>{this.state.id}</span><span>(揽件员)</span></span>
+                    <span>欢迎你~~ <span>{this.state.id}</span><span>(揽件员/{this.state.base})</span></span>
                     <span className="logoutBtn" onClick={this.onLogOut.bind(this)}>登出</span>
                 </nav>
                 <div className="deliverMain">

@@ -69,34 +69,41 @@ export default class ScanningPage extends React.Component {
                 if (myJson.length) {
                     let myDate = new Date();
                     let info = myJson[0];
-                    let date = `${myDate.getFullYear()}-${myDate.getMonth()}-${myDate.getDate()}`;
-                    let time = `${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`;
-                    let t = info.orderStatus.find((item) => {
-                        if (item.date === date) {
-                            item.state.unshift({
-                                time: time,
-                                state: "运输中",
-                                remark: remark,
-                                personBase: base,
-                                dealPersonId: id
-                            });
-                            return true;
-                        }
-                    });
-                    if (!t) {
+                    if(info.orderStatus[0].state[0].dealPersonId===this.state.id){
+                        alert("快件已扫描！")
+                    }else if(info.orderStatus[0].state[0].state==="派送中"||info.orderStatus[0].state[0].state==="已签收"){
+                        alert("订单状态为派送中或已签收，不可扫描！")
+                    }else{
+                        let date = `${myDate.getFullYear()}-${myDate.getMonth()}-${myDate.getDate()}`;
+                        let time = `${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`;
+                        let t = info.orderStatus.find((item) => {
+                            if (item.date === date) {
+                                item.state.unshift({
+                                    time: time,
+                                    state: "运输中",
+                                    remark: remark,
+                                    personBase: base,
+                                    dealPersonId: id
+                                });
+                                return true;
+                            }
+                        });
+                        if (!t) {
 
-                        info.orderStatus.unshift({
-                            date: date,
-                            state: [{
-                                time: time,
-                                state: "运输中",
-                                remark: remark,
-                                personBase:base,
-                                dealPersonId: id
-                            }]
-                        })
+                            info.orderStatus.unshift({
+                                date: date,
+                                state: [{
+                                    time: time,
+                                    state: "运输中",
+                                    remark: remark,
+                                    personBase:base,
+                                    dealPersonId: id
+                                }]
+                            })
+                        }
+                        this.postUpdateInfo(orderId, myJson[0]);
                     }
-                    this.postUpdateInfo(orderId, myJson[0]);
+
                 } else {
                     alert("订单不存在！")
                 }
@@ -133,7 +140,7 @@ export default class ScanningPage extends React.Component {
             <div className='page'>
                 <nav className='head'>
                     <p className="navbar-text">LOG物流管理系统</p>
-                    <span>欢迎你~~ <span>{this.state.id}</span><span>（站点扫描员)</span></span>
+                    <span>欢迎你~~ <span>{this.state.id}</span><span>（站点扫描员/{this.state.base})</span></span>
                     <span className="loginBtn" onClick={this.onLogOut.bind(this)}>登出</span>
                 </nav>
                 <section className="poster-main">
